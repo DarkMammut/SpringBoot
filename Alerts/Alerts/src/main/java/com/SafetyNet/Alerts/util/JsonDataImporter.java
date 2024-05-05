@@ -1,7 +1,6 @@
 package com.SafetyNet.Alerts.util;
 
-import com.SafetyNet.Alerts.model.Person;
-import com.SafetyNet.Alerts.model.PersonList;
+import com.SafetyNet.Alerts.model.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jsoniter.JsonIterator;
@@ -31,7 +30,21 @@ public class JsonDataImporter {
     public static List<Person> persons() {
         String filePath = "/data/persons.json";
         JsonNode jsonNode = readData(filePath);
-        PersonList persons = JsonIterator.deserialize(jsonNode.toString(), PersonList.class);
+        PersonsList persons = JsonIterator.deserialize(jsonNode.toString(), PersonsList.class);
         return persons.getPersons();
+    }
+
+    public static List<MedicalRecords> medicalRecords() {
+        String filePath = "/data/medicalrecords.json";
+        JsonNode jsonNode = readData(filePath);
+        MedicalRecordsList medicalrecords = JsonIterator.deserialize(jsonNode.toString(), MedicalRecordsList.class);
+        return medicalrecords.getMedicalRecords();
+    }
+
+    public static List<Firestations> firestations() {
+        String filePath = "/data/firestations.json";
+        JsonNode jsonNode = readData(filePath);
+        FirestationsList firestations = JsonIterator.deserialize(jsonNode.toString(), FirestationsList.class);
+        return firestations.getFirestations();
     }
 }
