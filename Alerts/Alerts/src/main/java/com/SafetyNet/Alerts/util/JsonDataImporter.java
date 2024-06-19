@@ -34,14 +34,14 @@ public class JsonDataImporter {
         return persons.getPersons();
     }
 
-    public static List<MedicalRecords> medicalRecords() {
+    public static List<MedicalRecord> medicalRecords() {
         String filePath = "/data/medicalrecords.json";
         JsonNode jsonNode = readData(filePath);
         MedicalRecordsList medicalrecords = JsonIterator.deserialize(jsonNode.toString(), MedicalRecordsList.class);
         return medicalrecords.getMedicalRecords();
     }
 
-    public static List<Firestations> firestations() {
+    public static List<Firestation> firestations() {
         String filePath = "/data/firestations.json";
         JsonNode jsonNode = readData(filePath);
         FirestationsList firestations = JsonIterator.deserialize(jsonNode.toString(), FirestationsList.class);

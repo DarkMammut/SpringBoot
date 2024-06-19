@@ -1,17 +1,19 @@
 package com.SafetyNet.Alerts.model;
 
-import java.util.Date;
 import java.util.List;
 
-public class MedicalRecords {
+public class MedicalRecord {
 
     private String firstName;
     private String lastName;
-    private Date birthdate;
+    private String birthdate;
     private List<String> medications;
     private List<String> allergies;
 
-    public MedicalRecords(String firstName, String lastName, Date birthdate, List<String> medications, List<String> allergies) {
+    public MedicalRecord() {
+    }
+
+    public MedicalRecord(String firstName, String lastName, String birthdate, List<String> medications, List<String> allergies) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -35,11 +37,11 @@ public class MedicalRecords {
         this.lastName = lastName;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

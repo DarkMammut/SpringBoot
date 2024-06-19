@@ -1,3 +1,5 @@
+package com.SafetyNet.Alerts.service;
+
 import com.SafetyNet.Alerts.model.Person;
 import com.SafetyNet.Alerts.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,11 +27,32 @@ public class PersonServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    private List<Person> getPersons() {
+
+        Person person1 = new Person();
+        person1.setFirstName("John");
+        person1.setLastName("Doe");
+        person1.setEmail("john@example.com");
+        person1.setAddress("123 Street");
+        person1.setCity("City");
+        person1.setZip("54321");
+        person1.setPhone("456-7890-1234");
+
+        Person person2 = new Person();
+        person2.setFirstName("Dan");
+        person2.setLastName("Van");
+        person2.setEmail("Dan@van.com");
+        person2.setAddress("456 Street");
+        person2.setCity("Lost City");
+        person2.setZip("36474");
+        person2.setPhone("7890-1234-4567");
+
+        return Arrays.asList(person1, person2);
+    }
+
     @Test
     public void testGetPersons() {
-        Person person1 = new Person("John", "Doe", "john@example.com");
-        Person person2 = new Person("Jane", "Doe", "jane@example.com");
-        List<Person> persons = Arrays.asList(person1, person2);
+        List<Person> persons = getPersons();
 
         when(personRepository.getAll()).thenReturn(persons);
 
@@ -40,7 +63,7 @@ public class PersonServiceTest {
 
     @Test
     public void testSave() {
-        Person person = new Person("John", "Doe", "john@example.com");
+        Person person = getPersons().get(0);
 
         when(personRepository.save(person)).thenReturn(person);
 
@@ -50,7 +73,7 @@ public class PersonServiceTest {
 
     @Test
     public void testGetPersonByEmail() {
-        Person person = new Person("John", "Doe", "john@example.com");
+        Person person = getPersons().get(0);
 
         when(personRepository.findByKey("john@example.com")).thenReturn(person);
 
@@ -60,7 +83,7 @@ public class PersonServiceTest {
 
     @Test
     public void testDeletePerson() {
-        Person person = new Person("John", "Doe", "john@example.com");
+        Person person = getPersons().get(0);
 
         when(personRepository.findByKey("john@example.com")).thenReturn(person);
         doNothing().when(personRepository).delete(person);
@@ -78,16 +101,28 @@ public class PersonServiceTest {
             personService.deletePerson("john@example.com");
         });
 
-        assertEquals("person not found", exception.getMessage());
+        assertEquals("Person not found", exception.getMessage());
     }
 
     @Test
     public void testUpdatePerson() {
-        Person person = new Person("John", "Doe", "john@example.com");
+        Person existingPerson = getPersons().get(0);
+        Person updatedPerson = new Person();
+        updatedPerson.setFirstName("John");
+        updatedPerson.setLastName("Doe");
+        updatedPerson.setEmail("john@example.com");
+        updatedPerson.setAddress("123 New Street");
+        updatedPerson.setCity("New City");
+        updatedPerson.setZip("12345");
+        updatedPerson.setPhone("123-456-7890");
 
-        when(personRepository.save(person)).thenReturn(person);
+        when(personRepository.findByKey("john@example.com")).thenReturn(existingPerson);
+        when(personRepository.save(existingPerson)).thenReturn(existingPerson);
 
-        Person result = personService.updatePerson(person);
-        assertEquals(person, result);
+        Person result = personService.updatePerson(updatedPerson);
+        assertEquals(updatedPerson.getAddress(), result.getAddress());
+        assertEquals(updatedPerson.getCity(), result.getCity());
+        assertEquals(updatedPerson.getZip(), result.getZip());
+        assertEquals(updatedPerson.getPhone(), result.getPhone());
     }
 }

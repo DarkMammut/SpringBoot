@@ -3,20 +3,20 @@ package com.SafetyNet.Alerts.model;
 import java.util.List;
 
 public class MedicalRecordsList {
-    private List<MedicalRecords> medicalrecords;
+    private List<MedicalRecord> medicalrecords;
 
     public MedicalRecordsList() {
     }
 
-    public MedicalRecordsList(List<MedicalRecords> medicalrecords) {
+    public MedicalRecordsList(List<MedicalRecord> medicalrecords) {
         this.medicalrecords = medicalrecords;
     }
 
-    public List<MedicalRecords> getMedicalRecords() {
+    public List<MedicalRecord> getMedicalRecords() {
         return medicalrecords;
     }
 
-    public void setMedicalrecords(List<MedicalRecords> medicalrecords) {
+    public void setMedicalrecords(List<MedicalRecord> medicalrecords) {
         this.medicalrecords = medicalrecords;
     }
 

@@ -3,20 +3,20 @@ package com.SafetyNet.Alerts.model;
 import java.util.List;
 
 public class FirestationsList {
-    private List<Firestations> firestations;
+    private List<Firestation> firestations;
 
     public FirestationsList() {
     }
 
-    public FirestationsList(List<Firestations> firestations) {
+    public FirestationsList(List<Firestation> firestations) {
         this.firestations = firestations;
     }
 
-    public List<Firestations> getFirestations() {
+    public List<Firestation> getFirestations() {
         return firestations;
     }
 
-    public void setFirestations(List<Firestations> firestations) {
+    public void setFirestations(List<Firestation> firestations) {
         this.firestations = firestations;
     }
 

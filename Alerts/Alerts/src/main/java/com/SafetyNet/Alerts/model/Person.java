@@ -6,13 +6,16 @@ public class Person {
     private String lastName;
     private String address;
     private String city;
-    private int zip;
+    private String zip;
     private String phone;
     private String email;
 
-    public Person(){};
+    public Person() {
+    }
 
-    public Person(String firstName, String lastName, String address, String city, int zip, String phone, String email) {
+    ;
+
+    public Person(String firstName, String lastName, String address, String city, String zip, String phone, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -26,7 +29,7 @@ public class Person {
         return firstName;
     }
 
-    public void setFirstName() {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -34,7 +37,7 @@ public class Person {
         return lastName;
     }
 
-    public void setLastName() {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -42,7 +45,7 @@ public class Person {
         return address;
     }
 
-    public void setAddress() {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -50,15 +53,15 @@ public class Person {
         return city;
     }
 
-    public void setCity() {
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public int getZip() {
+    public String getZip() {
         return zip;
     }
 
-    public void setZip(int zip) {
+    public void setZip(String zip) {
         this.zip = zip;
     }
 
@@ -66,7 +69,7 @@ public class Person {
         return phone;
     }
 
-    public void setPhone() {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -74,7 +77,7 @@ public class Person {
         return email;
     }
 
-    public void setEmail() {
+    public void setEmail(String email) {
         this.email = email;
     }
 
