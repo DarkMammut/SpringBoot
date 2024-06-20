@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.verify;
@@ -54,12 +55,27 @@ public class GlobalControllerTest {
         return new ListPersonAddressDTO(List.of(new PersonAddressDTO("John", "Doe", "123-456-7890", 40, null, null, "1")));
     }
 
+    private List<PersonHouseholdDTO> getPersons() {
+        PersonHouseholdDTO person1 = new PersonHouseholdDTO();
+        person1.setFirstname("John");
+        person1.setLastname("Doe");
+        person1.setAddress("123 Street");
+        person1.setPhone("123-456-7890");
+        person1.setAge(45);
+
+        PersonHouseholdDTO person2 = new PersonHouseholdDTO();
+        person2.setFirstname("Dan");
+        person2.setLastname("Van");
+        person2.setAddress("123 Street");
+        person2.setPhone("456-789-0123");
+        person2.setAge(50);
+
+        return Arrays.asList(person1, person2);
+    }
+
     private ListHouseholdStationDTO getSampleListHouseholdStationDTO() {
-        // Create sample PersonHouseholdDTO
-        PersonHouseholdDTO personHouseholdDTO = new PersonHouseholdDTO("John", "Doe", "123 Street", "123-456-7890", 45, null, null);
-        List<PersonHouseholdDTO> householdMemberDTO = List.of(personHouseholdDTO);
         // Create sample HouseholdDTO
-        HouseholdDTO householdDTO = new HouseholdDTO("123 Street", householdMemberDTO);
+        HouseholdDTO householdDTO = new HouseholdDTO("123 Street", getPersons());
         // Create sample ListHouseholdStationDTO containing the HouseholdDTO
         return new ListHouseholdStationDTO(List.of(householdDTO));
     }
@@ -139,21 +155,23 @@ public class GlobalControllerTest {
         verify(globalService).getPersonByAddress("123 Street");
     }
 
-//    @Test
-//    public void testGetHouseholdByStationNumber() throws Exception {
-//        ListHouseholdStationDTO listHouseholdStationDTO = getSampleListHouseholdStationDTO();
-//        List<String> stationNumber = List.of("1");
-//
-//        when(globalService.getHouseholdByStationNumber(stationNumber)).thenReturn(listHouseholdStationDTO);
-//
-//        mockMvc.perform(get("/flood").param("stationNumbers", "1"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.households[0].address").value("123 Street"))
-//                .andExpect(jsonPath("$.households[0].persons[0].firstname").value("John"))
-//                .andExpect(jsonPath("$.households[0].persons[0].lastname").value("Doe"));
-//
-//        verify(globalService).getHouseholdByStationNumber(stationNumber);
-//    }
+    @Test
+    public void testGetHouseholdByStationNumber() throws Exception {
+        ListHouseholdStationDTO listHouseholdStationDTO = getSampleListHouseholdStationDTO();
+
+        // Logging to verify mock setup
+        System.out.println("Mocked ListHouseholdStationDTO: " + listHouseholdStationDTO);
+
+        when(globalService.getHouseholdByStationNumber(List.of("1"))).thenReturn(listHouseholdStationDTO);
+
+        mockMvc.perform(get("/flood").param("stationNumbers", "1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.households[0].address").value("123 Street"))
+                .andExpect(jsonPath("$.households[0].persons[0].firstname").value("John"))
+                .andExpect(jsonPath("$.households[0].persons[0].lastname").value("Doe"));
+
+        verify(globalService).getHouseholdByStationNumber(List.of("1"));
+    }
 
     @Test
     public void testGetPersonInfo() throws Exception {

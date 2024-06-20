@@ -7,7 +7,9 @@ public class ListHouseholdStationDTO {
 
     public ListHouseholdStationDTO() {}
 
-    public ListHouseholdStationDTO(List<HouseholdDTO> households) {}
+    public ListHouseholdStationDTO(List<HouseholdDTO> households) {
+        this.households = households;
+    }
 
     public List<HouseholdDTO> getHouseholds() {
         return households;

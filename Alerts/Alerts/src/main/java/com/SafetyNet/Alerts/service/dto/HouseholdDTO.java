@@ -8,9 +8,9 @@ public class HouseholdDTO {
 
     public HouseholdDTO() {}
 
-    public HouseholdDTO(String address, List<PersonHouseholdDTO> householdMemberDTO) {
+    public HouseholdDTO(String address, List<PersonHouseholdDTO> persons) {
         this.address = address;
-        this.persons = householdMemberDTO;
+        this.persons = persons;
     }
 
     public String getAddress() {
